@@ -1,1 +1,1 @@
-# Realtime Drawing
+# Auth Skeleton with PostgreSQL and Sequelize
