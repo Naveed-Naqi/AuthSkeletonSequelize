@@ -32,17 +32,6 @@ class RegisterContainer extends Component {
     }
   }
 
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.registerUser(this.state, this.props.history);
-  };
-
   render() {
     return (
       <div>

@@ -11,7 +11,6 @@ const LoginView = props => {
   });
 
   const loginUser = event => {
-    console.log("h");
     event.preventDefault();
     props.loginUser(state);
   };

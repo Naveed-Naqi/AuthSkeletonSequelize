@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import isEmpty from "is-empty";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const RegisterView = props => {
   const [state, setState] = useState({
@@ -12,9 +12,11 @@ const RegisterView = props => {
     confirmPassword: ""
   });
 
+  const history = useHistory();
+
   const registerUser = event => {
     event.preventDefault();
-    props.registerUser(state);
+    props.registerUser(state, history);
   };
 
   const handleChange = event => {
