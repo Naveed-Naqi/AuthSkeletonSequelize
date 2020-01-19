@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import isEmpty from "is-empty";
 import { Link, useHistory } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 const RegisterView = props => {
   const [state, setState] = useState({
@@ -23,6 +24,17 @@ const RegisterView = props => {
     setState({ ...state, [event.target.id]: event.target.value });
   };
 
+  const useStyles = makeStyles(theme => ({
+    textField: {
+      width: "50%"
+    },
+    button: {
+      width: "35%"
+    }
+  }));
+
+  const classes = useStyles();
+
   return (
     <div>
       <form onSubmit={registerUser} autoComplete="off">
@@ -32,6 +44,7 @@ const RegisterView = props => {
             error={!isEmpty(props.errors.email)}
             helperText={props.errors.email}
             onChange={handleChange}
+            className={classes.textField}
             id="email"
             label="Email"
             variant="outlined"
@@ -47,6 +60,7 @@ const RegisterView = props => {
             }
             helperText={props.errors.registerUsername || props.errors.userFound}
             onChange={handleChange}
+            className={classes.textField}
             id="username"
             label="Username"
             variant="outlined"
@@ -59,6 +73,7 @@ const RegisterView = props => {
             error={!isEmpty(props.errors.registerPassword)}
             helperText={props.errors.registerPassword}
             onChange={handleChange}
+            className={classes.textField}
             id="password"
             type="password"
             label="Password"
@@ -72,6 +87,7 @@ const RegisterView = props => {
             error={!isEmpty(props.errors.confirmPassword)}
             helperText={props.errors.confirmPassword}
             onChange={handleChange}
+            className={classes.textField}
             id="confirmPassword"
             type="password"
             label="Confirm Password"
@@ -80,7 +96,12 @@ const RegisterView = props => {
         </div>
         <br></br>
         <div>
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            className={classes.button}
+            type="submit"
+            variant="contained"
+            color="primary"
+          >
             Register
           </Button>
         </div>

@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import isEmpty from "is-empty";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 const LoginView = props => {
   const [state, setState] = useState({
@@ -19,6 +20,17 @@ const LoginView = props => {
     setState({ ...state, [event.target.id]: event.target.value });
   };
 
+  const useStyles = makeStyles(theme => ({
+    textField: {
+      width: "50%"
+    },
+    button: {
+      width: "35%"
+    }
+  }));
+
+  const classes = useStyles();
+
   return (
     <div>
       <form onSubmit={loginUser} autoComplete="off">
@@ -31,6 +43,7 @@ const LoginView = props => {
             }
             helperText={props.errors.username || props.errors.userNotFound}
             onChange={handleChange}
+            className={classes.textField}
             id="username"
             label="Username"
             variant="outlined"
@@ -46,6 +59,7 @@ const LoginView = props => {
             }
             helperText={props.errors.password || props.errors.credentials}
             onChange={handleChange}
+            className={classes.textField}
             id="password"
             label="Password"
             variant="outlined"
@@ -54,7 +68,12 @@ const LoginView = props => {
         </div>
         <br></br>
         <div>
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            className={classes.button}
+            type="submit"
+            variant="contained"
+            color="primary"
+          >
             Login
           </Button>
         </div>
