@@ -41,9 +41,7 @@ router.post("/register", (req, res, next) => {
     // Hash password before saving in database
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newUser.password, salt, (err, hash) => {
-        if (err) {
-          return res.status(400).send({ internalErr: "Error occured" });
-        }
+        if (err) throw err;
         newUser.password = hash;
         newUser
           .save()
@@ -53,9 +51,7 @@ router.post("/register", (req, res, next) => {
 
           //TODO: Improve error handling
           .catch(err => {
-            return res.status(400).json({
-              internalErr: "Error occured"
-            });
+            return res.status(400).json("Error occured");
           });
       });
     });
@@ -75,7 +71,7 @@ router.post("/login", (req, res, next) => {
   }).then(user => {
     if (!user) {
       return res.status(400).json({
-        userNotFound: "User not found"
+        userNotFound: "Username and/or email not found"
       });
     }
 
