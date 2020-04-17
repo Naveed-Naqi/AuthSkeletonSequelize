@@ -1,89 +1,67 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import isEmpty from "is-empty";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 
-const LoginView = props => {
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
+const LoginView = (props) => {
   const [state, setState] = useState({
     username: "",
-    password: ""
+    password: "",
   });
 
-  const loginUser = event => {
+  const loginUser = (event) => {
     event.preventDefault();
     props.loginUser(state);
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setState({ ...state, [event.target.id]: event.target.value });
   };
 
-  const useStyles = makeStyles(theme => ({
-    textField: {
-      width: "50%"
-    },
-    button: {
-      width: "35%"
-    }
-  }));
-
-  const classes = useStyles();
-
   return (
-    <div>
-      <form onSubmit={loginUser} autoComplete="off">
-        <div>
-          <TextField
-            value={state.username}
-            error={
-              !isEmpty(props.errors.username) ||
-              !isEmpty(props.errors.userNotFound)
-            }
-            helperText={props.errors.username || props.errors.userNotFound}
+    <Container>
+      <h1>Login</h1>
+
+      <br></br>
+
+      <Form onSubmit={loginUser} autoComplete="off">
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
             onChange={handleChange}
-            className={classes.textField}
-            id="username"
-            label="Username"
-            variant="outlined"
           />
-        </div>
-        <br></br>
-        <div>
-          <TextField
-            value={state.password}
-            error={
-              !isEmpty(props.errors.password) ||
-              !isEmpty(props.errors.credentials)
-            }
-            helperText={props.errors.password || props.errors.credentials}
-            onChange={handleChange}
-            className={classes.textField}
-            id="password"
-            label="Password"
-            variant="outlined"
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
+            placeholder="Password"
+            onChange={handleChange}
           />
-        </div>
-        <br></br>
-        <div>
-          <Button
-            className={classes.button}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            Login
-          </Button>
-        </div>
+        </Form.Group>
+
+        <Link to="/register">Already have an account?</Link>
 
         <br></br>
-        <div>
-          <Link to="/register">Need an account?</Link>
-        </div>
-      </form>
-    </div>
+        <br></br>
+
+        <Button variant="primary" type="submit">
+          Login
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

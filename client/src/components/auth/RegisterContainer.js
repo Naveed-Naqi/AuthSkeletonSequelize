@@ -12,7 +12,7 @@ class RegisterContainer extends Component {
       email: "",
       username: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
     };
   }
 
@@ -34,16 +34,10 @@ class RegisterContainer extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Register</h1>
-        <br></br>
-        <br></br>
-
-        <RegisterView
-          errors={this.props.errors}
-          registerUser={this.props.registerUser}
-        ></RegisterView>
-      </div>
+      <RegisterView
+        errors={this.props.errors}
+        registerUser={this.props.registerUser}
+      ></RegisterView>
     );
   }
 }
@@ -51,12 +45,12 @@ class RegisterContainer extends Component {
 RegisterContainer.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 
 export default connect(mapStateToProps, { registerUser })(RegisterContainer);

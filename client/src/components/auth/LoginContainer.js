@@ -10,7 +10,7 @@ class LoginContainer extends Component {
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
     };
   }
 
@@ -31,16 +31,10 @@ class LoginContainer extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Login</h1>
-        <br></br>
-        <br></br>
-
-        <LoginView
-          errors={this.props.errors}
-          loginUser={this.props.loginUser}
-        ></LoginView>
-      </div>
+      <LoginView
+        errors={this.props.errors}
+        loginUser={this.props.loginUser}
+      ></LoginView>
     );
   }
 }
@@ -48,12 +42,12 @@ class LoginContainer extends Component {
 LoginContainer.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 
 export default connect(mapStateToProps, { loginUser })(LoginContainer);
