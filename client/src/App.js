@@ -15,7 +15,7 @@ import LoginContainer from "./components/auth/LoginContainer";
 import DashboardContainer from "./components/dashboard/DashboardContainer";
 import PrivateRoute from "./components/auth/PrivateRoute";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+import { MuiEasySnackbarProvider } from "mui-easy-snackbar";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -44,16 +44,17 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
-          <div className="App">
-            <Switch>
-              <Route exact path="/" component={LoginContainer} />
-              <Route exact path="/register" component={RegisterContainer} />
-
-              <Route exact path="/dashboard" component={DashboardContainer} />
-            </Switch>
-          </div>
-        </Router>
+        <MuiEasySnackbarProvider>
+          <Router>
+            <div className="App">
+              <Switch>
+                <Route exact path="/" component={LoginContainer} />
+                <Route exact path="/register" component={RegisterContainer} />
+                <Route exact path="/dashboard" component={DashboardContainer} />
+              </Switch>
+            </div>
+          </Router>
+        </MuiEasySnackbarProvider>
       </Provider>
     );
   }

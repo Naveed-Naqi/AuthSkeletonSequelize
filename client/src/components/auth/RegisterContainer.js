@@ -24,6 +24,10 @@ class RegisterContainer extends Component {
     }
   }
 
+  registerUser = (data) => {
+    this.props.registerUser(data, this.props.history);
+  };
+
   componentDidUpdate(prevProps, prevState) {
     const { auth, history } = this.props;
 
@@ -36,8 +40,8 @@ class RegisterContainer extends Component {
     return (
       <RegisterView
         errors={this.props.errors}
-        registerUser={this.props.registerUser}
-      ></RegisterView>
+        registerUser={this.registerUser}
+      />
     );
   }
 }

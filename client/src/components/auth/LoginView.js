@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import isEmpty from "is-empty";
+import { FormTemplate } from "mui-rff-template";
+import { Grid, Card, CardContent, CardHeader } from "@material-ui/core";
+
+import { validationSchema, initialValues, data } from "../forms/LoginForm.js";
 import { Link } from "react-router-dom";
-
-import Container from "react-bootstrap/Container";
-
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 
 const LoginView = (props) => {
   const [state, setState] = useState({
@@ -13,9 +11,8 @@ const LoginView = (props) => {
     password: "",
   });
 
-  const loginUser = (event) => {
-    event.preventDefault();
-    props.loginUser(state);
+  const login = async (data) => {
+    await props.loginUser(data);
   };
 
   const handleChange = (event) => {
@@ -23,43 +20,27 @@ const LoginView = (props) => {
   };
 
   return (
-    <Container>
-      <h1>Login</h1>
+    <Grid container justify="center" direction="column" alignItems="center">
+      <Card style={{ width: "60%" }}>
+        <CardHeader title="Login"></CardHeader>
 
-      <br></br>
-
-      <Form onSubmit={loginUser} autoComplete="off">
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            onChange={handleChange}
+        <CardContent>
+          <FormTemplate
+            handleSubmit={login}
+            data={data}
+            cancel={false}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            submitButtonLabel="Login"
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={handleChange}
-          />
-        </Form.Group>
-
-        <Link to="/register">Already have an account?</Link>
-
-        <br></br>
-        <br></br>
-
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
-      </Form>
-    </Container>
+          <br></br>
+          <div>
+            <Link to="/register">Need an account?</Link>
+          </div>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 

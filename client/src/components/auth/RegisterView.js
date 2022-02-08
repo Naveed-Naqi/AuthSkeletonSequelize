@@ -1,74 +1,40 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
-import Container from "react-bootstrap/Container";
+import { Grid, Card, CardHeader, CardContent } from "@material-ui/core";
+import {
+  validationSchema,
+  initialValues,
+  data,
+} from "../forms/RegisterForm.js";
+import { FormTemplate } from "mui-rff-template";
 
 const RegisterView = (props) => {
-  const [state, setState] = useState({
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  const history = useHistory();
-
-  const registerUser = (event) => {
-    event.preventDefault();
-    props.registerUser(state, history);
-  };
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.id]: event.target.value });
+  const register = (data) => {
+    props.registerUser(data);
   };
 
   return (
-    <Container>
-      <h1>Register</h1>
-      <br></br>
-      <Form onSubmit={registerUser} autoComplete="off">
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            onChange={handleChange}
+    <Grid container justify="center" direction="column" alignItems="center">
+      <Card style={{ width: "60%" }}>
+        <CardHeader title="Register"></CardHeader>
+
+        <CardContent>
+          <FormTemplate
+            handleSubmit={register}
+            data={data}
+            cancel={false}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            submitButtonLabel="Register"
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={handleChange}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={handleChange}
-          />
-        </Form.Group>
-
-        <Link to="/">Already have an account?</Link>
-
-        <br></br>
-        <br></br>
-
-        <Button variant="primary" type="submit">
-          Register
-        </Button>
-      </Form>
-    </Container>
+          <br></br>
+          <div>
+            <Link to="/">Already have an account?</Link>
+          </div>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 
